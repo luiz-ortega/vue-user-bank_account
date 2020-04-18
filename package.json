@@ -10,7 +10,10 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
-    "vue-router": "^3.1.6"
+    "vue-router": "^3.1.6",
+    "vue-select": "^3.10.1",
+    "vuelidate": "^0.7.5",
+    "vuelidate-messages": "^0.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
