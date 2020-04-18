@@ -4,7 +4,7 @@ import Users from "../views/Users.vue";
 import AddUser from "../views/AddUser.vue";
 import EditUser from "../views/EditUser.vue";
 import AddBankAccount from "../views/AddBankAccount.vue";
-import EditBankAccount from "../views/EditBankAccount.vue";
+import EditBankAccounts from "../views/EditBankAccounts.vue";
 
 Vue.use(VueRouter);
 
@@ -20,19 +20,19 @@ const routes = [
     component: AddUser
   },
   {
-    path: "/edit_user",
+    path: "/user/:id/edit_user",
     name: "EditUser",
     component: EditUser
   },
   {
-    path: "/add_bank_account",
+    path: "/user/:id/add_bank_account",
     name: "AddBankAccount",
     component: AddBankAccount
   },
   {
-    path: "/edit_bank_accounts",
-    name: "EditBankAccount",
-    component: EditBankAccount
+    path: "/user/:id/edit_bank_accounts",
+    name: "EditBankAccounts",
+    component: EditBankAccounts
   }
 ];
 

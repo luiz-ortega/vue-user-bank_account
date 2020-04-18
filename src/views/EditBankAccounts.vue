@@ -1,9 +1,11 @@
 <template>
   <div class="col-12">
     <div class="d-flex justify-content-between mt-5">
-      <CustomButton @click="submitForm" label="Voltar" type="primary" />
+      <CustomButton @click="$router.go(-1)" label="Voltar" type="primary" />
       <CustomButton
-        @click="submitForm"
+        @click="
+          $router.push({ name: 'AddBankAccount', params: { backButton: true } })
+        "
         label="+ Adicionar dados bancários"
         type="primary"
       />

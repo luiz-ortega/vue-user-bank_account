@@ -3,27 +3,43 @@
     <h1 class="text-center mt-5">Usuários</h1>
     <div class="d-flex flex-row-reverse">
       <CustomButton
-        @click="submitForm"
+        @click="$router.push({ name: 'AddUser' })"
         label="+ Adicionar usuário"
         type="primary"
       />
     </div>
-
-    <UserForm ref="formComponent" />
+    <slot v-bind="users">
+      <CustomTable :propsUsers="users" />
+    </slot>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import UserForm from "@/components/Forms/UserForm.vue";
 import CustomButton from "@/components/CustomButton.vue";
+import CustomTable from "@/components/CustomTable.vue";
+
+import api from "@/services/api";
 
 export default {
   name: "Users",
+
   components: {
-    UserForm,
-    CustomButton
+    CustomButton,
+    CustomTable
   },
+
+  data() {
+    return {
+      users: []
+    };
+  },
+
+  async mounted() {
+    const reponse_users = await api.get("/users");
+    console.log(reponse_users);
+    this.users = reponse_users.data["hydra:member"];
+  },
+
   methods: {
     submitForm() {
       var child = this.$refs.formComponent;
