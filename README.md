@@ -1,4 +1,4 @@
-# vue-user-bank_accounts
+# VueJS User/Bank-Accounts Dashboard
 
 ## Project setup
 ```
