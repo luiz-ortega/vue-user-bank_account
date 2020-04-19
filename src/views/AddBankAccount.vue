@@ -1,30 +1,55 @@
 <template>
   <div class="col-12">
     <div class="d-flex flex-row mt-5">
-      <CustomButton @click="$router.go(-1)" label="Voltar" type="primary" />
+      <CustomButton
+        v-if="this.$route.params.backButton"
+        @click="$router.go(-1)"
+        label="Voltar"
+        type="primary"
+      />
     </div>
-    <h4 class="text-center">Adicionar contas bancárias</h4>
+    <h4 class="text-center">Adicionar conta bancária</h4>
 
-    <UserForm ref="formComponent" />
+    <BankAccountForm ref="formComponent" />
+    <div class="d-flex justify-content-around mt-5 col-4 offset-4">
+      <CustomButton
+        @click="$router.push('/')"
+        label="Pular"
+        type="outline-info"
+      />
+      <CustomButton @click="submitForm" label="Salvar" type="success" />
+    </div>
   </div>
 </template>
 
 <script>
-import UserForm from "@/components/Forms/UserForm.vue";
+import BankAccountForm from "@/components/Forms/BankAccountForm.vue";
 import CustomButton from "@/components/CustomButton.vue";
+import api from "@/services/api";
 
 export default {
-  name: "Users",
+  name: "AddBankAccount",
   components: {
-    UserForm,
+    BankAccountForm,
     CustomButton
   },
+
   methods: {
-    submitForm() {
-      var child = this.$refs.formComponent;
-      const validation = child.handleSubmit();
-      if (validation) {
-        alert(`${JSON.stringify(validation)}`);
+    async submitForm() {
+      var form = this.$refs.formComponent;
+      const formValues = form.handleSubmit();
+      console.log({ ...formValues, user: `/users/${this.$route.params.id}` });
+
+      if (formValues) {
+        try {
+          await api.post("/bank_accounts", {
+            ...formValues,
+            user: `/users/${this.$route.params.id}`
+          });
+          this.$router.push("/");
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
   }

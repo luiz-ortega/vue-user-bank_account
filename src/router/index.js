@@ -22,17 +22,20 @@ const routes = [
   {
     path: "/user/:id/edit_user",
     name: "EditUser",
-    component: EditUser
+    component: EditUser,
+    props: true
   },
   {
     path: "/user/:id/add_bank_account",
     name: "AddBankAccount",
-    component: AddBankAccount
+    component: AddBankAccount,
+    props: true
   },
   {
     path: "/user/:id/edit_bank_accounts",
     name: "EditBankAccounts",
-    component: EditBankAccounts
+    component: EditBankAccounts,
+    props: true
   }
 ];
 

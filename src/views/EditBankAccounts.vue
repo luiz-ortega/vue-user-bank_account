@@ -12,8 +12,8 @@
     </div>
     <h4 class="text-center">Editar contas bancárias</h4>
 
-    <div v-for="(user, index) in users" :key="index">
-      <UserForm :userProps="user" ref="users" />
+    <div v-for="(bankAccount, index) in bankAccounts" :key="index">
+      <BankAccountForm :bankAccount="bankAccount" ref="users" />
       <div class="d-flex justify-content-around mt-5 col-4 offset-4">
         <CustomButton
           @click="submitForm(index)"
@@ -31,29 +31,43 @@
 </template>
 
 <script>
-import UserForm from "@/components/Forms/UserForm.vue";
+import BankAccountForm from "@/components/Forms/BankAccountForm.vue";
 import CustomButton from "@/components/CustomButton.vue";
+
+import api from "@/services/api";
 
 export default {
   name: "Users",
 
   components: {
-    UserForm,
+    BankAccountForm,
     CustomButton
   },
 
   data() {
     return {
-      users: [
-        { firstName: "teste", lastName: "teste1", email: "teste2" },
-        { firstName: "1", lastName: "2", email: "3" }
-      ]
+      bankAccounts: []
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.loadBankAccounts();
+  },
 
   methods: {
+    async loadBankAccounts() {
+      const id = this.$route.params.id;
+      console.log(id);
+
+      try {
+        const response = await api.get(`/users/${id}/bank_accounts`);
+        console.log(response.data["hydra:member"]);
+        this.bankAccounts = response.data["hydra:member"];
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     submitForm(index) {
       var child = this.$refs.users[index];
       const validation = child.handleSubmit();

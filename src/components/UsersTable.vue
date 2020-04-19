@@ -58,7 +58,11 @@
                 @click="$router.push(`/user/${user.id}/edit_bank_accounts`)"
                 type="outline-primary"
               />
-              <CustomButton label="Excluir usuário" type="outline-danger" />
+              <CustomButton
+                @click="deleteUser(user.id)"
+                label="Excluir usuário"
+                type="outline-danger"
+              />
             </div>
           </td>
         </tr>
@@ -101,6 +105,9 @@ export default {
       this.currentPage = page;
       this.indexStart = page === 1 ? 0 : (page - 1) * this.pageSize;
       this.indexEnd = page * this.pageSize;
+    },
+    deleteUser(id) {
+      this.$emit("click", id);
     }
   }
 };

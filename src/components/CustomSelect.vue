@@ -4,7 +4,7 @@
     <div>
       <v-select
         id="name"
-        :reduce="option => option.slug"
+        :reduce="option => option.id"
         label="name"
         name="name"
         @input="updateInput"
@@ -20,20 +20,20 @@
 <script>
 export default {
   name: "CustomSelect",
-  props: ["inputLabel", "submitted", "value", "error", "name", "errorMessage"],
+  props: [
+    "inputLabel",
+    "submitted",
+    "value",
+    "error",
+    "name",
+    "errorMessage",
+    "options"
+  ],
   data() {
     return {
-      options: [
-        { slug: "1", name: "Apple" },
-        { slug: "2", name: "Banana" },
-        { slug: "3", name: "Mango" },
-        { slug: "4", name: "Watermelon" }
-      ],
-      currentValue: ""
+      currentValue: this.value ? this.value : ""
     };
   },
-
-  computed: {},
 
   mounted() {},
   methods: {
