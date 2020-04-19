@@ -1,16 +1,17 @@
 <template>
   <div class="col-8 offset-2">
     <form @submit.prevent="handleSubmit">
-      <CustomInput
-        inputLabel="Nome"
-        name="name"
-        v-model="name"
-        :value="name"
-        :submitted="submitted"
-        :error="$v.name.$error"
-        :errorMessage="validationMsg($v.name)"
-      />
-
+      <slot v-bind="propsUser">
+        <CustomInput
+          inputLabel="Nome"
+          name="name"
+          v-model="name"
+          :value="name"
+          :submitted="submitted"
+          :error="$v.name.$error"
+          :errorMessage="validationMsg($v.name)"
+        />
+      </slot>
       <CustomInput
         inputLabel="CPF"
         name="cpf"
@@ -52,12 +53,19 @@ export default {
     CustomInput
   },
 
-  props: ["user"],
+  props: ["propsUser"],
+  watch: {
+    propsUser: function(newVal) {
+      this.name = newVal.name;
+      this.cpf = newVal.cpf;
+      this.email = newVal.email;
+    }
+  },
   data() {
     return {
-      name: this.user ? this.user.name : "",
-      cpf: this.user ? this.user.cpf : "",
-      email: this.user ? this.user.email : "",
+      name: this.propsUser ? this.propsUser.name : "",
+      cpf: this.propsUser ? this.propsUser.cpf : "",
+      email: this.propsUser ? this.propsUser.email : "",
       submitted: false
     };
   },
@@ -66,6 +74,7 @@ export default {
     cpf: { required, maxLength: maxLength(11) },
     email: { required, email }
   },
+
   methods: {
     validationMsg: validationMessage(formMessages),
 

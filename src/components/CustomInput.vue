@@ -1,6 +1,7 @@
 <template>
   <div class="full-width">
     <label>{{ inputLabel }}</label>
+
     <input
       v-if="!number"
       @input="updateInput"
