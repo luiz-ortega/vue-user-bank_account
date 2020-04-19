@@ -10,7 +10,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import UserForm from "@/components/Forms/UserForm.vue";
 import CustomButton from "@/components/CustomButton.vue";
 

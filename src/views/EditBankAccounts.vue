@@ -31,16 +31,17 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import UserForm from "@/components/Forms/UserForm.vue";
 import CustomButton from "@/components/CustomButton.vue";
 
 export default {
   name: "Users",
+
   components: {
     UserForm,
     CustomButton
   },
+
   data() {
     return {
       users: [
@@ -49,7 +50,9 @@ export default {
       ]
     };
   },
+
   mounted() {},
+
   methods: {
     submitForm(index) {
       var child = this.$refs.users[index];

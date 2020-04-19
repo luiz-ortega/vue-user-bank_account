@@ -23,11 +23,29 @@
       <tbody v-for="(user, index) in pagedUser" :key="index">
         <tr>
           <td>{{ user.name }}</td>
-          <td>
-            <div v-for="(bankAccount, index) in user.bankAccounts" :key="index">
-              <p>{{ bankAccount }}</p>
+          <td class="bank-accounts-td-container">
+            <div
+              class="bank-accounts-container"
+              v-for="(bankAccount, index) in user.bankAccounts"
+              :key="index"
+            >
+              <div>
+                <p>
+                  <strong>{{ bankAccount.accountName }}</strong>
+                  - {{ bankAccount.accountType }}
+                </p>
+                <p></p>
+              </div>
+              <p>{{ bankAccount.bank.name }}</p>
+              <p>Ag: {{ bankAccount.agency }}-{{ bankAccount.agencyDigit }}</p>
+              <p>
+                C: {{ bankAccount.accountNumber }}-{{
+                  bankAccount.accountDigit
+                }}
+              </p>
             </div>
           </td>
+
           <td class="col-buttons-container">
             <div class="buttons-container">
               <CustomButton
@@ -54,7 +72,7 @@ import CustomButton from "@/components/CustomButton";
 import Pagination from "@/components/Pagination";
 
 export default {
-  name: "CustomTable",
+  name: "UsersTable",
   components: {
     CustomButton,
     Pagination
@@ -91,6 +109,18 @@ export default {
 <style>
 td {
   padding: 10px !important;
+}
+
+p {
+  margin: 0;
+}
+
+.bank-accounts-td-container {
+  padding-bottom: 0px !important;
+}
+
+.bank-accounts-container {
+  margin-bottom: 10px;
 }
 
 .buttons-container {

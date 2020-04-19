@@ -9,23 +9,21 @@
       />
     </div>
     <slot v-bind="users">
-      <UserTable :propsUsers="users" />
+      <UsersTable :propsUsers="users" />
     </slot>
   </div>
 </template>
 
 <script>
 import CustomButton from "@/components/CustomButton.vue";
-import UserTable from "@/components/UserTable.vue";
-
+import UsersTable from "@/components/UsersTable.vue";
 import api from "@/services/api";
 
 export default {
   name: "Users",
-
   components: {
     CustomButton,
-    UserTable
+    UsersTable
   },
 
   data() {
@@ -35,19 +33,36 @@ export default {
   },
 
   async mounted() {
-    const reponse_users = await api.get("/users");
-    console.log(reponse_users);
-    this.users = reponse_users.data["hydra:member"];
-  },
+    const response_users = await api.get("/users");
+    const response_bankAccounts = await api.get("/bank_accounts");
+    const response_banks = await api.get("/banks");
 
-  methods: {
-    submitForm() {
-      var child = this.$refs.formComponent;
-      const validation = child.handleSubmit();
-      if (validation) {
-        alert(`${JSON.stringify(validation)}`);
-      }
-    }
+    const users = response_users.data["hydra:member"];
+    const bankAccounts = response_bankAccounts.data["hydra:member"];
+    const banks = response_banks.data["hydra:member"];
+
+    const users_bankAccounts = users.reduce((current, next) => {
+      let bankAccountDetails = next.bankAccounts.map(bankAccountId =>
+        bankAccounts.find(el => el["@id"] === bankAccountId)
+      );
+      next["bankAccounts"] = bankAccountDetails;
+      return current;
+    }, users);
+
+    const users_bankAccounts_banks = users_bankAccounts.reduce(
+      (current, next) => {
+        next.bankAccounts.reduce((current, next) => {
+          let newBankAccount = banks.find(el => el["@id"] === next.bank);
+          next["bank"] = newBankAccount;
+          return current;
+        }, next.bankAccounts);
+
+        return current;
+      },
+      users_bankAccounts
+    );
+
+    this.users = users_bankAccounts_banks;
   }
 };
 </script>
