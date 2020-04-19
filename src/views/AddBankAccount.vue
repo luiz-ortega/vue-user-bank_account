@@ -13,6 +13,7 @@
     <BankAccountForm ref="formComponent" />
     <div class="d-flex justify-content-around mt-5 col-4 offset-4">
       <CustomButton
+        v-if="!this.$route.params.backButton"
         @click="$router.push('/')"
         label="Pular"
         type="outline-info"
@@ -38,7 +39,6 @@ export default {
     async submitForm() {
       var form = this.$refs.formComponent;
       const formValues = form.handleSubmit();
-      console.log({ ...formValues, user: `/users/${this.$route.params.id}` });
 
       if (formValues) {
         try {
@@ -46,7 +46,11 @@ export default {
             ...formValues,
             user: `/users/${this.$route.params.id}`
           });
-          this.$router.push("/");
+          if (this.$route.params.backButton) {
+            this.$router.go(-1);
+          } else {
+            this.$router.push("/");
+          }
         } catch (err) {
           console.log(err);
         }
