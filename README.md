@@ -1,5 +1,7 @@
 # VueJS User/Bank-Accounts Dashboard
 
+A simple dashboard for add, edit, remove users and register bank accounts made with [VueJS](https://vuejs.org/v2/guide/). 
+
 ## Project setup
 ```
 yarn install
@@ -10,15 +12,9 @@ yarn install
 yarn serve
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## Image of Application
+![Diagram](https://github.com/luiz-ortega/vue-user-bank_account/blob/master/dashboard_tela.png)
 
-### Lints and fixes files
-```
-yarn lint
-```
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
