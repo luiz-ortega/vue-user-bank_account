@@ -107,6 +107,17 @@ export default {
   },
 
   props: ["bankAccount"],
+  watch: {
+    bankAccount: function(newVal) {
+      this.accountName = newVal.accountName;
+      this.agency = newVal.agency;
+      this.agencyDigit = newVal.agencyDigit;
+      this.bank = newVal.bank;
+      this.accountType = newVal.accountType;
+      this.accountNumber = newVal.accountNumber;
+      this.accountDigit = newVal.accountDigit;
+    }
+  },
   data() {
     return {
       accountName: this.bankAccount ? this.bankAccount.accountName : "",

@@ -75,7 +75,7 @@ export default {
       const bankAccountId = bankAccount.id;
       try {
         await api.delete(`/bank_accounts/${bankAccountId}`);
-        window.location.reload();
+        this.loadBankAccounts();
       } catch (err) {
         console.log(err);
       }
@@ -88,7 +88,7 @@ export default {
       if (formData) {
         try {
           await api.put(`/bank_accounts/${bankId}`, formData);
-          window.location.reload();
+          this.loadBankAccounts();
         } catch (err) {
           console.log(err);
         }
