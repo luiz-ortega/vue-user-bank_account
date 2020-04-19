@@ -68,6 +68,12 @@ export default {
         this.bankAccounts = response.data["hydra:member"];
       } catch (err) {
         console.log(err);
+        this.$notify({
+          group: "user-bank-account",
+          type: "error",
+          title: "Error",
+          text: `${err}`
+        });
       }
     },
 
@@ -78,6 +84,12 @@ export default {
         this.loadBankAccounts();
       } catch (err) {
         console.log(err);
+        this.$notify({
+          group: "user-bank-account",
+          type: "error",
+          title: "Error",
+          text: `${err}`
+        });
       }
     },
 
@@ -91,6 +103,12 @@ export default {
           this.loadBankAccounts();
         } catch (err) {
           console.log(err);
+          this.$notify({
+            group: "user-bank-account",
+            type: "error",
+            title: "Error",
+            text: `${err}`
+          });
         }
       }
     }

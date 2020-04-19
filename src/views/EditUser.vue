@@ -48,11 +48,18 @@ export default {
         };
       } catch (err) {
         console.log(err);
+        this.$notify({
+          group: "user-bank-account",
+          type: "error",
+          title: "Error",
+          text: `${err}`
+        });
       }
     },
 
     async submitForm() {
       const id = this.$route.params.id;
+
       var form = this.$refs.formComponent;
       const formData = form.handleSubmit();
       if (formData) {
@@ -61,6 +68,12 @@ export default {
           this.$router.push("/");
         } catch (err) {
           console.log(err);
+          this.$notify({
+            group: "user-bank-account",
+            type: "error",
+            title: "Error",
+            text: `${err}`
+          });
         }
       }
     }
