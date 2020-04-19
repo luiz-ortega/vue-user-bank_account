@@ -39,6 +39,7 @@ export default {
           });
         } catch (err) {
           console.log(err);
+
           this.$notify({
             group: "user-bank-account",
             type: "error",

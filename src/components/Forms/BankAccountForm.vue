@@ -96,7 +96,8 @@ import { validationMessage } from "vuelidate-messages";
 
 const formMessages = {
   required: () => "Campo obrigatório.",
-  maxLength: () => "Digito deve conter 1 dígito."
+  textMaxLen: ({ $params }) =>
+    `Deve ter no máximo ${$params.textMaxLen.max} dígitos.`
 };
 
 export default {
@@ -138,12 +139,12 @@ export default {
   },
   validations: {
     accountName: { required },
-    agency: { required },
-    agencyDigit: { required, maxLength: maxLength(1) },
+    agency: { required, textMaxLen: maxLength(5) },
+    agencyDigit: { required, textMaxLen: maxLength(1) },
     bank: { required },
     accountType: { required },
-    accountNumber: { required },
-    accountDigit: { required, maxLength: maxLength(1) }
+    accountNumber: { required, textMaxLen: maxLength(13) },
+    accountDigit: { required, textMaxLen: maxLength(1) }
   },
 
   async mounted() {

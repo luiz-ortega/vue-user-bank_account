@@ -52,7 +52,8 @@ export default {
             this.$router.push("/");
           }
         } catch (err) {
-          console.log(err);
+          // console.log(err);
+          console.log(err.response);
           this.$notify({
             group: "user-bank-account",
             type: "error",

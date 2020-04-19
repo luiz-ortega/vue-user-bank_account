@@ -75,7 +75,6 @@ export default {
         await api.delete(`/users/${id}`);
         this.loadUsers();
       } catch (err) {
-        console.log(err);
         this.$notify({
           group: "user-bank-account",
           type: "error",
