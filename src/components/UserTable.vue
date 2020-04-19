@@ -1,9 +1,11 @@
 <template>
   <div>
-    <pre>
-          {{ pagedUser }}
-      </pre
-    >
+    <Pagination
+      :items="propsUsers"
+      :totalPages="totalPages"
+      :currentPage="currentPage"
+      @click="changePage"
+    />
     <table
       cellpadding="0"
       cellspacing="0"
@@ -44,60 +46,25 @@
         </tr>
       </tbody>
     </table>
-    <nav class="pagination-container">
-      <ul class="pagination">
-        <li
-          @click="
-            changePage(
-              currentPage > totalPages[0] ? currentPage - 1 : totalPages[0]
-            )
-          "
-          class="page-item"
-        >
-          <p class="page-link">Anterior</p>
-        </li>
-        <div v-for="(page, index) in totalPages" :key="index">
-          <li class="page-item">
-            <p
-              :class="{ 'page-selected': page === currentPage }"
-              class="page-link"
-              @click="changePage(page)"
-            >
-              {{ page }}
-            </p>
-          </li>
-        </div>
-
-        <li
-          @click="
-            changePage(
-              currentPage < totalPages[totalPages.length - 1]
-                ? currentPage + 1
-                : totalPages[totalPages.length - 1]
-            )
-          "
-          class="page-item"
-        >
-          <p class="page-link">Próxima</p>
-        </li>
-      </ul>
-    </nav>
   </div>
 </template>
 
 <script>
 import CustomButton from "@/components/CustomButton";
+import Pagination from "@/components/Pagination";
 
 export default {
   name: "CustomTable",
   components: {
-    CustomButton
+    CustomButton,
+    Pagination
   },
   props: ["propsUsers"],
   data() {
     return {
       currentPage: 1,
       indexStart: 0,
+      indexEnd: 5,
       pageSize: 5
     };
   },
@@ -108,13 +75,14 @@ export default {
       ].slice(1);
     },
     pagedUser: function() {
-      return this.propsUsers.slice(this.indexStart, this.pageSize);
+      return this.propsUsers.slice(this.indexStart, this.indexEnd);
     }
   },
-
   methods: {
     changePage(page) {
       this.currentPage = page;
+      this.indexStart = page === 1 ? 0 : (page - 1) * this.pageSize;
+      this.indexEnd = page * this.pageSize;
     }
   }
 };
@@ -134,22 +102,5 @@ td {
 
 .col-buttons-container {
   width: 450px;
-}
-
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-}
-
-.page-link:hover {
-  cursor: pointer;
-  background-color: #007bff;
-  color: white !important;
-}
-
-.page-selected {
-  background-color: #007bff;
-  color: white !important;
 }
 </style>

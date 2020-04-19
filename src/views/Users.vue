@@ -9,14 +9,14 @@
       />
     </div>
     <slot v-bind="users">
-      <CustomTable :propsUsers="users" />
+      <UserTable :propsUsers="users" />
     </slot>
   </div>
 </template>
 
 <script>
 import CustomButton from "@/components/CustomButton.vue";
-import CustomTable from "@/components/CustomTable.vue";
+import UserTable from "@/components/UserTable.vue";
 
 import api from "@/services/api";
 
@@ -25,7 +25,7 @@ export default {
 
   components: {
     CustomButton,
-    CustomTable
+    UserTable
   },
 
   data() {
