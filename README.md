@@ -2,7 +2,7 @@
 
 A simple dashboard for add, edit, remove users and register bank accounts made with [VueJS](https://vuejs.org/v2/guide/). 
 
-The low fidelity prototype/wirefram can be found [here](https://www.figma.com/file/wjzQWLQGB4nqJtNx1LfdDo/cm2tech?node-id=0%3A1).
+The low fidelity prototype/wireframe can be found [here](https://www.figma.com/file/wjzQWLQGB4nqJtNx1LfdDo/cm2tech?node-id=0%3A1).
 
 ## Project setup
 ```
